@@ -27,66 +27,70 @@ class CustomerTransactions extends React.Component {
             isLoading: false,
             customerData: {},
             customerTransactions: [],
-            customerReferralBenefits: [],
-            customerOrderBenefits: []
+            customerReferralBenefits: null,
+            customerOrderBenefits: null
         };
     }
 
     componentDidMount () {
-        this.setState({ customerData: this.props.location.state });
-        this.onLoading();
+        console.log('CustomerTransactions: Component Did Mount');
+        let query = this.props.location.search;
+        let params = new URLSearchParams(query);
+        let customerID = params.get('customer_id');
+        this.onLoading(customerID);
     }
 
     componentWillUnmount () {
-        this.signal.cancel('API is being cancelled');
+        this.signal.cancel('Customer Transactions: API is being cancelled');
         console.log('Unmounting Referral benefit table');
     }
 
-    onLoading = async () => {
+    onLoading = async (customerID) => {
         try {
-            let query = this.props.location.search;
-            let params = new URLSearchParams(query);
-            let customerID = params.get('customer_id');
+            this.setState({ customerData: this.props.location.state });
+            console.log('onLoading: try block');
             this.setState({ isLoading: true });
             const { data } = await axios.get('/api/v1/customer_transaction?customer_id=' + customerID, {
                 cancelToken: this.signal.token,
             });
+            console.log(data);
             this.setState({ customerTransactions: data.response, isLoading: true });
+            console.log(this.state);
+            let orderBenefits = []; 
+            let referralBenefits = [];
+            if (typeof this.state.customerTransactions.length !== 0) {
+                orderBenefits = this.state.customerTransactions.filter((customerTransaction) => {
+                    if (customerTransaction.description.match(/Order ID:/)) {
+                        return customerTransaction;
+                    }
+                });
+                this.setState({ customerOrderBenefits: orderBenefits });
+                console.log(this.state);
+                referralBenefits = this.state.customerTransactions.filter((customerTransaction) => {
+                    if (customerTransaction.description.match(/Customer ID:/)) {
+                        return customerTransaction;
+                    }
+                });
+                this.setState({ customerReferralBenefits: referralBenefits });
+                console.log(this.state);
+            }
         }
         catch (err) {
             if (axios.isCancel(err)) {
                 console.log('Error: ', err.message);
             }
             else {
-                this.setState({ isLoading: true });
+                this.setState({ isLoading: false });
             }
         }
     }
 
     render () {
+        console.log('CustomerTransactions: render function');
         let customerID = this.state.customerData.customerData ? this.state.customerData.customerData.customer_id : '';
         let customerName = this.state.customerData.customerData ? this.state.customerData.customerData.firstname + ' ' + this.state.customerData.customerData.lastname : '0';
-        let customerTransactions = this.state.customerTransactions.length ? this.state.customerTransactions : 'No Customer Transactions yet';
-        let orderBenefits = []; 
-        let referralBenefits = [];
-        
-        if (typeof customerTransactions !== "string") {
-            orderBenefits = customerTransactions.filter((customerTransaction) => {
-                if (customerTransaction.description.match(/Order ID:/)) {
-                    return customerTransaction;
-                }
-            });
-
-            referralBenefits = customerTransactions.filter((customerTransaction) => {
-                if (customerTransaction.description.match(/Customer ID:/)) {
-                    return customerTransaction;
-                }
-            });
-        }
-
-        console.log ('order benefits: ' + orderBenefits);
-        console.log ('referral benefits: ' + referralBenefits);
-
+        let orderBenefits = this.state.customerOrderBenefits;
+        let referralBenefits = this.state.customerReferralBenefits;
         return (
             <div className={useStyles.root}>
                 <Grid container spacing={3}>

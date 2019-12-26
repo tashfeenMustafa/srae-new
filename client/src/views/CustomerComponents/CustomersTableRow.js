@@ -21,8 +21,8 @@ class CustomersTableRow extends React.Component {
     }
 
     componentWillUnmount () {
-      this.signal.cancel('API is being cancelled');
-      console.log('unmount component'); 
+      this.signal.cancel('CustomersTableRow: API is being cancelled');
+      console.log('Unmounting CustomersTableRow Component'); 
     }
 
     onLoading = async () => {
