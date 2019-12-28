@@ -234,7 +234,7 @@ router.get('/api/v1/customer_transaction', (req, res) => {
         return;
       }
       
-    });
+  });
   
 });
 

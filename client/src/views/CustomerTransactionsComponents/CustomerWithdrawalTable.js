@@ -15,25 +15,24 @@ const useStyles = makeStyles({
   },
 });
 
-class CustomerOrderBenefitTable extends React.Component {
+class CustomerWithdrawalTable extends React.Component {
   constructor (props) {
     super (props);
   }
 
   render () {
-    let orderBenefits = this.props.orderBenefits;
-    let getTotal = (orderBenefits) => {
-      let totalAmountArray = orderBenefits.map((benefits) => {
-        return benefits.amount;
-      });
-      let sum = 0;
-      totalAmountArray.forEach((item) => {
-        sum += item;
-      });
-      console.log(sum);
-      return sum;
-    };
-
+    let withdrawalData = this.props.withdrawalData;
+    let getTotal = (withdrawalData) => {
+        let totalAmountArray = withdrawalData.map((withdrawal) => {
+          return withdrawal.amount;
+        });
+        let sum = 0;
+        totalAmountArray.forEach((item) => {
+          sum += item;
+        });
+        return sum;
+      };
+  
     return (
       <TableContainer component={Paper}>
         <Table className={useStyles.table} aria-label="simple table">
@@ -45,18 +44,18 @@ class CustomerOrderBenefitTable extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orderBenefits.map(benefits => (
-              <TableRow key={benefits.customer_transaction_id}>
+            {withdrawalData.map(withdrawal => (
+              <TableRow key={withdrawal.customer_transaction_id}>
                 <TableCell component="th" scope="row">
-                  {benefits.description}
+                  {withdrawal.description}
                 </TableCell>
-                <TableCell align="right">{benefits.amount}</TableCell>
-                <TableCell align="right">{benefits.date_added}</TableCell>
+                <TableCell align="right">{withdrawal.amount}</TableCell>
+                <TableCell align="right">{withdrawal.date_added}</TableCell>
               </TableRow>
             ))}
             <TableRow>
               <TableCell>Total($):</TableCell>
-              <TableCell>{getTotal(orderBenefits)}</TableCell>
+              <TableCell>{getTotal(withdrawalData)}</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableBody>
@@ -66,4 +65,4 @@ class CustomerOrderBenefitTable extends React.Component {
   }
 }
 
-export default CustomerOrderBenefitTable;
+export default CustomerWithdrawalTable;

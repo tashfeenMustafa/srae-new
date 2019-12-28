@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import CustomerOrderBenefitTable from './CustomerOrderBenefitTable';
 import CustomerReferralBenefitTable from './CustomerReferralBenefitTable';
+import CustomerWithdrawalTable from './CustomerWithdrawalTable';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -28,16 +29,14 @@ class CustomerTransactions extends React.Component {
             customerData: {},
             customerTransactions: [],
             customerReferralBenefits: null,
-            customerOrderBenefits: null
+            customerOrderBenefits: null,
+            customerWithdrawalData: null
         };
     }
 
     componentDidMount () {
         console.log('CustomerTransactions: Component Did Mount');
-        let query = this.props.location.search;
-        let params = new URLSearchParams(query);
-        let customerID = params.get('customer_id');
-        this.onLoading(customerID);
+        this.onLoading();
     }
 
     componentWillUnmount () {
@@ -45,8 +44,12 @@ class CustomerTransactions extends React.Component {
         console.log('Unmounting Referral benefit table');
     }
 
-    onLoading = async (customerID) => {
+    onLoading = async () => {
         try {
+            let query = this.props.location.search;
+            let params = new URLSearchParams(query);
+            let customerID = params.get('customer_id');
+            console.log(customerID);
             this.setState({ customerData: this.props.location.state });
             console.log('onLoading: try block');
             this.setState({ isLoading: true });
@@ -58,6 +61,7 @@ class CustomerTransactions extends React.Component {
             console.log(this.state);
             let orderBenefits = []; 
             let referralBenefits = [];
+            let withdrawalData = [];
             if (typeof this.state.customerTransactions.length !== 0) {
                 orderBenefits = this.state.customerTransactions.filter((customerTransaction) => {
                     if (customerTransaction.description.match(/Order ID:/)) {
@@ -72,6 +76,13 @@ class CustomerTransactions extends React.Component {
                     }
                 });
                 this.setState({ customerReferralBenefits: referralBenefits });
+                console.log(this.state);
+                withdrawalData = this.state.customerTransactions.filter((customerTransaction) => {
+                    if (customerTransaction.description.match(/Withdrawal Amount/)) {
+                        return customerTransaction;
+                    }
+                });
+                this.setState({ customerWithdrawalData: withdrawalData });
                 console.log(this.state);
             }
         }
@@ -91,6 +102,7 @@ class CustomerTransactions extends React.Component {
         let customerName = this.state.customerData.customerData ? this.state.customerData.customerData.firstname + ' ' + this.state.customerData.customerData.lastname : '0';
         let orderBenefits = this.state.customerOrderBenefits;
         let referralBenefits = this.state.customerReferralBenefits;
+        let withdrawalData = this.state.customerWithdrawalData;
         return (
             <div className={useStyles.root}>
                 <Grid container spacing={3}>
@@ -130,6 +142,19 @@ class CustomerTransactions extends React.Component {
                             {orderBenefits && orderBenefits.length !== 0 ?
                                 <CustomerOrderBenefitTable orderBenefits={orderBenefits} /> 
                                 : 'No Order Benefits yet'
+                            }
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6}>
+                        <Paper>
+                            <div className={useStyles.root}>
+                                <Typography variant="h4" gutterBottom>
+                                    Customer Withdrawal
+                                </Typography>
+                            </div>
+                            {withdrawalData && withdrawalData.length !== 0 ?
+                                <CustomerWithdrawalTable withdrawalData={withdrawalData} /> 
+                                : 'No Withdrawals yet'
                             }
                         </Paper>
                     </Grid>

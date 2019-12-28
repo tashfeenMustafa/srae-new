@@ -17,6 +17,17 @@ const useStyles = makeStyles({
 class CustomerReferralBenefitTable extends React.Component {
   render () {
     let referralBenefits = this.props.referralBenefits;
+    let getTotal = (referralBenefits) => {
+      let totalAmountArray = referralBenefits.map((benefits) => {
+        return benefits.amount;
+      });
+      let sum = 0;
+      totalAmountArray.forEach((item) => {
+        sum += item;
+      });
+      return sum;
+    };
+
     return (
       <TableContainer component={Paper}>
         <Table className={useStyles.table} aria-label="simple table">
@@ -37,6 +48,11 @@ class CustomerReferralBenefitTable extends React.Component {
                 <TableCell align="right">{benefits.date_added}</TableCell>
               </TableRow>
             ))}
+            <TableRow>
+              <TableCell>Total($):</TableCell>
+              <TableCell>{getTotal(referralBenefits)}</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
