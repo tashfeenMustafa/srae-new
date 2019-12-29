@@ -25,6 +25,8 @@ import Orders from './OrdersComponent/Orders';
 import OrderProducts from './OrderProductsTableComponent/OrderProducts';
 import Customers from './CustomerComponents/Customers';
 import CustomerTransactions from './CustomerTransactionsComponents/CustomerTransactions';
+import PaidCustomers from './PaidCustomersComponents/PaidCustomers';
+import Sell4VetsCustomerTransactions from './Sell4VetsCustomerTransactionsComponents/Sell4VetsCustomerTransactions';
 
 function Copyright () {
   return (
@@ -122,7 +124,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -197,7 +199,9 @@ export default function Dashboard() {
                 <Route path="/orderproducts" component={OrderProducts} />
                 <Route path="/orderproducts/?order_id=" component={OrderProducts} />
                 <Route path="/customers" component={Customers} />
+                <Route path="/paid-customers" component={PaidCustomers} />
                 <Route path="/transactions" component={CustomerTransactions} />
+                <Route path="/sellforvets-alltransactions" component={Sell4VetsCustomerTransactions} />
                 <Route path="/transactions/?customer_id=" component={CustomerTransactions} />
               </Switch>
 

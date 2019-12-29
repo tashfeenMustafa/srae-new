@@ -5,6 +5,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import { Link } from 'react-router-dom';
 
 export const mainListItems = (
@@ -31,6 +33,22 @@ export const mainListItems = (
             <PeopleIcon />
           </ListItemIcon>
           <ListItemText primary="Customers" />
+        </ListItem>
+      </Link>
+      <Link to={"/paid-customers"}>
+        <ListItem button>
+          <ListItemIcon>
+            <PeopleAltIcon />
+          </ListItemIcon>
+          <ListItemText primary="Paid Customers" />
+        </ListItem>
+      </Link>
+      <Link to={"/sellforvets-alltransactions"}>
+        <ListItem button>
+          <ListItemIcon>
+            <AssignmentIcon />
+          </ListItemIcon>
+          <ListItemText primary="Sell4Vets Transactions" />
         </ListItem>
       </Link>
     </div>

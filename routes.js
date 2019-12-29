@@ -318,5 +318,98 @@ router.get('/api/v1/getmanufacturername', (req, res) => {
   
 });
 
+/*
+  Get Customer data for Customer page
+*/
+router.get('/api/v1/paidcustomers', (req, res) => {
+
+  pool.getConnection((err, connection) => {
+    if (err) {
+      // not connected!
+      console.log('API couldn\'t connect to Database: ' + err);
+      return;
+    }
+
+    let sql = 'SELECT * FROM oc_customer WHERE customer_group_id != 1 ORDER BY customer_id DESC';
+
+    // Use the connection
+    connection.query(sql, (error, customers) => {
+      if (error) {
+        res.json({
+          "status": 500,
+          "error": error,
+          "response": customers
+        });
+        //If there is error, we send the error in the error section with 500 status
+      } else {
+        //res.json({"status": 200, "error": 'No Error', "response": results});
+        //If there is no error, all is good and response is 200OK.
+        res.json({
+          "status": 200,
+          "message": 'success',
+          "response": customers
+        });
+      }
+    });
+
+    // When done with the connection, release it.
+    connection.release();
+
+    // Handle error after the release.
+    if (err) {
+      console.log('Error in release MySQL database connection. Error: ' + err);
+      return;
+    }
+
+  });
+
+});
+
+/*
+  Get Customer Transaction Data
+*/
+router.get('/api/v1/customer_transaction_sell4vets', (req, res) => {
+  
+  pool.getConnection((err, connection) => {
+    if (err) {
+      // not connected!
+      console.log('API couldn\'t connect to Database: ' + err);
+      return;
+    }
+
+    let sql = 'SELECT * FROM oc_customer_transaction';
+
+    // Use the connection
+    connection.query(sql, (error, customerTransactions) => {
+      if (error) {
+        res.json({
+          "status": 500,
+          "error": error,
+          "response": customerTransactions
+        });
+        //If there is error, we send the error in the error section with 500 status
+      } else {
+        //res.json({"status": 200, "error": 'No Error', "response": results});
+        //If there is no error, all is good and response is 200OK.
+        res.json({
+          "status": 200,
+          "message": 'success',
+          "response": customerTransactions
+        });
+      }
+    });
+
+    // When done with the connection, release it.
+    connection.release();
+
+    // Handle error after the release.
+    if (err) {
+      console.log('Error in release MySQL database connection. Error: ' + err);
+      return;
+    }
+
+  });
+
+});
 
 module.exports = router;
