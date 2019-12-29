@@ -60,8 +60,9 @@ class CustomerOrderBenefitTable extends React.Component {
             ))}
             <TableRow>
               <TableCell>Total($):</TableCell>
-              <TableCell>{getTotal(orderBenefits)}</TableCell>
               <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell>{getTotal(orderBenefits)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
