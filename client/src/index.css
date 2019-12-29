@@ -8,6 +8,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #F8F7F0;
 }
+@media (min-width: 600px){
+  .jss10 {
+    width: 56px;
+  }
+} 
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
