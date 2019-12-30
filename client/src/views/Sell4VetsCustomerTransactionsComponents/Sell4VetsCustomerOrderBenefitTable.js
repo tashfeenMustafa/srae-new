@@ -16,9 +16,6 @@ const useStyles = makeStyles({
 });
 
 class CustomerOrderBenefitTable extends React.Component {
-  constructor (props) {
-    super (props);
-  }
 
   render () {
     let orderBenefits = this.props.orderBenefits;

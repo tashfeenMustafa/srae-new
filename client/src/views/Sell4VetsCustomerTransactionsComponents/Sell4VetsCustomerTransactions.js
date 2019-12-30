@@ -56,7 +56,7 @@ class Sell4VetsCustomerTransactions extends React.Component {
             let orderBenefits = []; 
             let referralBenefits = [];
             let withdrawalData = [];
-            if (typeof this.state.customerTransactions.length !== 0) {
+            if (this.state.customerTransactions.length !== 0) {
                 orderBenefits = this.state.customerTransactions.filter((customerTransaction) => {
                     if (customerTransaction.description.match(/Order ID:/)) {
                         return customerTransaction;

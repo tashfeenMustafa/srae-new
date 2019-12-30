@@ -2,7 +2,6 @@ import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
-import Typography from '@material-ui/core/Typography';
 
 class OrderProductsTableRow extends React.Component {
   signal = axios.CancelToken.source();

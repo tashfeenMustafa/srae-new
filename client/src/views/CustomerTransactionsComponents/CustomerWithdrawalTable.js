@@ -16,10 +16,6 @@ const useStyles = makeStyles({
 });
 
 class CustomerWithdrawalTable extends React.Component {
-  constructor (props) {
-    super (props);
-  }
-
   render () {
     let withdrawalData = this.props.withdrawalData;
     let getTotal = (withdrawalData) => {
