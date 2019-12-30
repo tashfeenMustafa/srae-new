@@ -28,6 +28,18 @@ import CustomerTransactions from './CustomerTransactionsComponents/CustomerTrans
 import PaidCustomers from './PaidCustomersComponents/PaidCustomers';
 import Sell4VetsCustomerTransactions from './Sell4VetsCustomerTransactionsComponents/Sell4VetsCustomerTransactions';
 
+function Home () {
+  return (
+    <Grid item xs={12} md={12} lg={12}>
+      <Paper>
+        <Typography variant="h1" component="h2" gutterBottom>
+          Dashboard
+        </Typography>
+      </Paper>
+    </Grid>
+  );
+}
+
 function Copyright () {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -186,15 +198,9 @@ export default function Dashboard() {
             <Grid container spacing={3}>
 
               {/* Heading */}
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper>
-                  <Typography variant="h1" component="h2" gutterBottom>
-                    Dashboard
-                  </Typography>
-                </Paper>
-              </Grid>
 
               <Switch>
+                <Route exact path="/" component={Home} />
                 <Route path="/orders" component={Orders} />
                 <Route path="/orderproducts" component={OrderProducts} />
                 <Route path="/orderproducts/?order_id=" component={OrderProducts} />
