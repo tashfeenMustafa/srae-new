@@ -2,6 +2,7 @@ import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 
 class OrderProductsTableRow extends React.Component {
   signal = axios.CancelToken.source();
@@ -57,7 +58,15 @@ class OrderProductsTableRow extends React.Component {
 
   render () {
     let orderProduct = this.props.orderProduct;
-    let manufacturerName = this.state.manufacturerName ? this.state.manufacturerName[0].name : 'No Manufacturer Mentioned in DB';
+    let manufacturerName;
+
+    if (orderProduct.name === 'Military Membership') {
+      manufacturerName = 'No Manufacturer for this product';
+    }
+    else {
+      manufacturerName = this.state.manufacturerName[0].name;
+    }
+
     return (
       <TableRow>
         <TableCell align="right"> { orderProduct.order_product_id } </TableCell>

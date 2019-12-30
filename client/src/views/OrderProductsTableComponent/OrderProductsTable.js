@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import OrderProductsTableRow from './OrderProductsTableRow';
+import { Typography } from '@material-ui/core';
 
 function OrderProductsTableHead () {
     return (
@@ -48,6 +49,11 @@ class OrderProductsTable extends React.Component {
 
     render () {
         const orderProducts = this.props.orderProducts;
+        
+        if (orderProducts.length === 0) {
+            return <Typography>No products exist for this order</Typography>
+        }
+        
         let rows = orderProducts.map((orderProduct) =>
             <OrderProductsTableRow orderProduct={orderProduct} key={orderProduct.order_product_id} />
         );

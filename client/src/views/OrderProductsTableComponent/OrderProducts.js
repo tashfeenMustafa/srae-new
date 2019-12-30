@@ -14,8 +14,6 @@ const useStyles = makeStyles({
 });
 
 class OrderProducts extends React.Component {
-    _isMounted = true;
-
     constructor (props) {
         super (props);
         this.state = {
@@ -33,19 +31,18 @@ class OrderProducts extends React.Component {
         
         let { data } = await axios.get('/api/v1/orderproducts?order_id=' + orderID);
         this.setState({ orderProducts: data.response });
-
         data = await axios.get('/api/v1/customerdetails?customer_id=' + customerID);
         this.setState({ customerDetails: data.data.response[0] });
     }
 
     componentWillUnmount () {
-        this._isMounted = false;
     }
     
     render () {
         let orderProducts = this.state.orderProducts;
         let customerDetails = this.state.customerDetails;
         let customerName = customerDetails ? this.state.customerDetails.firstname + ' ' + this.state.customerDetails.lastname : ' ';
+
         return (
             <Grid item xs={12} md={12} lg={12}>
                 <Paper>
