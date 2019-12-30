@@ -72,12 +72,7 @@ class CustomersTableRow extends React.Component {
                 <TableCell align="right">{ customerParentName }</TableCell>
                 <TableCell align="right">{ customer.date_added }</TableCell>
                 <TableCell align="right">
-                  <Link to={{
-                    pathname: '/transactions/?customer_id=' + customer.customer_id,
-                    state: {
-                      customerData: this.props.customer
-                    }
-                  }}>
+                  <Link to={'/transactions/?customer_id=' + customer.customer_id + '&customer_firstname=' + customer.customer_firstname + '&customer_lastname=' + customer.customer_lastname}>
                     <Button 
                       variant="contained" 
                       color="primary">

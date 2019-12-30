@@ -26,7 +26,8 @@ class CustomerTransactions extends React.Component {
         super (props);
         this.state = {
             isLoading: false,
-            customerData: {},
+            customerID: null,
+            customerName: '',
             customerTransactions: [],
             customerReferralBenefits: null,
             customerOrderBenefits: null,
@@ -49,20 +50,28 @@ class CustomerTransactions extends React.Component {
             let query = this.props.location.search;
             let params = new URLSearchParams(query);
             let customerID = params.get('customer_id');
-            console.log(customerID);
-            this.setState({ customerData: this.props.location.state });
+            this.setState({ customerID: customerID });
+            console.log('customer_ID: ' + customerID);
+            
+            let customerName = params.get('customer_firstname') + ' ' + params.get('customer_lastname');
+            this.setState({ customerName: customerName });
             console.log('onLoading: try block');
+            
             this.setState({ isLoading: true });
             const { data } = await axios.get('/api/v1/customer_transaction?customer_id=' + customerID, {
                 cancelToken: this.signal.token,
             });
             console.log(data);
+            
             this.setState({ customerTransactions: data.response, isLoading: true });
             console.log(this.state);
+            
             let orderBenefits = []; 
             let referralBenefits = [];
             let withdrawalData = [];
+            
             if (this.state.customerTransactions.length !== 0) {
+                
                 orderBenefits = this.state.customerTransactions.filter((customerTransaction) => {
                     if (customerTransaction.description.match(/Order ID:/)) {
                         return customerTransaction;
@@ -70,6 +79,7 @@ class CustomerTransactions extends React.Component {
                 });
                 this.setState({ customerOrderBenefits: orderBenefits });
                 console.log(this.state);
+                
                 referralBenefits = this.state.customerTransactions.filter((customerTransaction) => {
                     if (customerTransaction.description.match(/Customer ID:/)) {
                         return customerTransaction;
@@ -77,6 +87,7 @@ class CustomerTransactions extends React.Component {
                 });
                 this.setState({ customerReferralBenefits: referralBenefits });
                 console.log(this.state);
+                
                 withdrawalData = this.state.customerTransactions.filter((customerTransaction) => {
                     if (customerTransaction.description.match(/Withdrawal Amount/)) {
                         return customerTransaction;
@@ -98,11 +109,12 @@ class CustomerTransactions extends React.Component {
 
     render () {
         console.log('CustomerTransactions: render function');
-        let customerID = this.state.customerData.customerData ? this.state.customerData.customerData.customer_id : '';
-        let customerName = this.state.customerData.customerData ? this.state.customerData.customerData.firstname + ' ' + this.state.customerData.customerData.lastname : '0';
+        let customerID = this.state.customerID;
+        let customerName = this.state.customerName;
         let orderBenefits = this.state.customerOrderBenefits;
         let referralBenefits = this.state.customerReferralBenefits;
         let withdrawalData = this.state.customerWithdrawalData;
+        
         return (
             <div className={useStyles.root}>
                 <Grid container spacing={3}>

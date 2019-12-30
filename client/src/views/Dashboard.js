@@ -201,8 +201,8 @@ export default function Dashboard() {
                 <Route path="/customers" component={Customers} />
                 <Route path="/paid-customers" component={PaidCustomers} />
                 <Route path="/transactions" component={CustomerTransactions} />
-                <Route path="/sellforvets-alltransactions" component={Sell4VetsCustomerTransactions} />
                 <Route path="/transactions/?customer_id=" component={CustomerTransactions} />
+                <Route path="/sellforvets-alltransactions" component={Sell4VetsCustomerTransactions} />
               </Switch>
 
             </Grid>
