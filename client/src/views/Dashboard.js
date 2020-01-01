@@ -136,7 +136,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -198,9 +198,8 @@ export default function Dashboard() {
             <Grid container spacing={3}>
 
               {/* Heading */}
-
+              <Home />
               <Switch>
-                <Route exact path="/" component={Home} />
                 <Route path="/orders" component={Orders} />
                 <Route path="/orderproducts" component={OrderProducts} />
                 <Route path="/orderproducts/?order_id=" component={OrderProducts} />

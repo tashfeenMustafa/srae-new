@@ -4,9 +4,9 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit : 10,
     host: 'sell4vets.com',
-    user: 'sell4vetsbd_orders_api',
-    password: '_buF2T-x%s(D',
-    database: 'sell4vetsbd_op_new',
+    user: 'sell4vetsbd_adminapi',
+    password: 'Vbav(%1tl15)',
+    database: 'sell4vetsbd_ocdb',
     insecureAuth: true,
     bigNumberStrings: true,
     dateStrings: true,

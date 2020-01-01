@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('./db.js');
+const mysqlPassword = require('mysql-password');
 
 /*
   Get Orders from OC_ORDER table from database
@@ -410,6 +411,68 @@ router.get('/api/v1/customer_transaction_sell4vets', (req, res) => {
 
   });
 
+});
+
+/* 
+  Router for User Login and Authentication
+*/
+router.post('/login', (req, res) => {
+  var email= req.body.email;
+  var password = mysqlPassword(req.body.password);
+
+  pool.getConnection((err, connection) => {
+    if (err) {
+      // not connected!
+      console.log('API couldn\'t connect to Database: ' + err);
+      return;
+    }
+
+    let sql = 'SELECT * FROM oc_users WHERE email = ?';
+
+    // Use the connection
+    connection.query(sql, [email], (error, results, fields) => {
+      if (error) {
+        // console.log("error ocurred",error);
+        res.send({
+          "code":400,
+          "failed":"error ocurred"
+        })
+      }
+      else {
+        // console.log('The solution is: ', results);
+        if (results.length >0){
+          if (results[0].password == password){
+            res.send({
+              "code":200,
+              "success":"login sucessfull"
+            });
+          }
+          else {
+            res.send({
+              "code":204,
+              "success":"Email and password does not match"
+            });
+          }
+        }
+        else {
+          res.send({
+            "code":204,
+            "success":"Email does not exits"
+          });
+        }
+      }
+    });
+
+    // When done with the connection, release it.
+    connection.release();
+
+    // Handle error after the release.
+    if (err) {
+      console.log('Error in release MySQL database connection. Error: ' + err);
+      return;
+    }
+
+  });
 });
 
 module.exports = router;
