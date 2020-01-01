@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && HTTPS=true npm run build"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -17,7 +17,10 @@
     "morgan": "~1.9.1",
     "mysql": "^2.17.1",
     "mysql-password": "0.0.1",
+    "node-sha1": "^1.0.1",
     "nodemon": "^2.0.2",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "salted-sha1": "^1.0.1",
+    "sha1": "^1.1.1"
   }
 }

@@ -3,15 +3,17 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+//import FormControlLabel from '@material-ui/core/FormControlLabel';
+//import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+//import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
+import mysqlPassword from 'mysql-password';
 
 function Copyright() {
   return (
@@ -49,7 +51,40 @@ const useStyles = makeStyles(theme => ({
 class SignIn extends React.Component {
     constructor (props) {
       super (props);
+      this.state = {
+        username: '',
+        password: ''
+      };
+      
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange (event) {
+      const target = event.target;
+      const value = target.value;
+      const name = target.name;
+
+      this.setState({
+        [name]: value
+      });
+    }
+
+    handleSubmit (event) {
+      event.preventDefault();
+      console.log('Username: ', this.state.username);
+      console.log('Password: ', this.state.password);
+      this.login(this.state.username, this.state.password)
+      this.props.history.push("/");
+    }
+
+    login = async (username, password) => {
+      const response = await axios.post(
+        '/login',
+        { username: username, password: password },
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+      console.log(response.data);
     }
 
     render () {
@@ -65,17 +100,18 @@ class SignIn extends React.Component {
                   <Typography component="h1" variant="h5">
                     Sign in
                   </Typography>
-                  <form className={classes.form} noValidate>
+                  <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
                         autoFocus
+                        onChange={this.handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -87,10 +123,7 @@ class SignIn extends React.Component {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
+                        onChange={this.handleChange}
                     />
                     <Button
                         type="submit"
@@ -98,7 +131,6 @@ class SignIn extends React.Component {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onSubmit={() => this.handleSubmit}
                     >
                       Sign In
                     </Button>

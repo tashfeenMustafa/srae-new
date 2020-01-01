@@ -27,6 +27,7 @@ import Customers from './CustomerComponents/Customers';
 import CustomerTransactions from './CustomerTransactionsComponents/CustomerTransactions';
 import PaidCustomers from './PaidCustomersComponents/PaidCustomers';
 import Sell4VetsCustomerTransactions from './Sell4VetsCustomerTransactionsComponents/Sell4VetsCustomerTransactions';
+import SignIn from './SignIn';
 
 function Home () {
   return (
@@ -198,8 +199,9 @@ export default function Dashboard() {
             <Grid container spacing={3}>
 
               {/* Heading */}
-              <Home />
+              
               <Switch>
+                <Route exact path="/" component={Home} />
                 <Route path="/orders" component={Orders} />
                 <Route path="/orderproducts" component={OrderProducts} />
                 <Route path="/orderproducts/?order_id=" component={OrderProducts} />

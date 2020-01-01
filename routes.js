@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const pool = require('./db.js');
 const mysqlPassword = require('mysql-password');
+const saltedSha1 = require('salted-sha1');
+const crypto = require('crypto');
+const sha1 = require('sha1');
 
 /*
   Get Orders from OC_ORDER table from database
@@ -417,9 +420,11 @@ router.get('/api/v1/customer_transaction_sell4vets', (req, res) => {
   Router for User Login and Authentication
 */
 router.post('/login', (req, res) => {
-  var email= req.body.email;
-  var password = mysqlPassword(req.body.password);
-
+  console.log('username: ' + req.body.username);
+  console.log('password(BEFORE AUTH): ' + req.body.password);
+  var username= req.body.username;
+  var password = req.body.password;
+  
   pool.getConnection((err, connection) => {
     if (err) {
       // not connected!
@@ -427,21 +432,25 @@ router.post('/login', (req, res) => {
       return;
     }
 
-    let sql = 'SELECT * FROM oc_users WHERE email = ?';
+    let sql = 'SELECT * FROM oc_user WHERE username = ?';
 
     // Use the connection
-    connection.query(sql, [email], (error, results, fields) => {
+    connection.query(sql, [username], (error, results, fields) => {
       if (error) {
-        // console.log("error ocurred",error);
+        console.log("error ocurred",error);
         res.send({
           "code":400,
           "failed":"error ocurred"
         })
       }
       else {
-        // console.log('The solution is: ', results);
+        console.log('The solution is: ', results);
         if (results.length >0){
-          if (results[0].password == password){
+          console.log('password(AFTER AUTH):', sha1(results[0].salt + sha1(results[0].salt + sha1(password))));
+          console.log(results[0].password);
+          console.log(results[0].salt);
+          if (results[0].password == sha1(results[0].salt + sha1(results[0].salt + sha1(password)))){
+            
             res.send({
               "code":200,
               "success":"login sucessfull"
