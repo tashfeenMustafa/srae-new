@@ -15,10 +15,13 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 //import NotificationsIcon from '@material-ui/icons/Notifications';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import { mainListItems } from './DashboardComponents/listItems';
 //import SignIn from './SignIn';
 import Orders from './OrdersComponent/Orders';
@@ -27,7 +30,14 @@ import Customers from './CustomerComponents/Customers';
 import CustomerTransactions from './CustomerTransactionsComponents/CustomerTransactions';
 import PaidCustomers from './PaidCustomersComponents/PaidCustomers';
 import Sell4VetsCustomerTransactions from './Sell4VetsCustomerTransactionsComponents/Sell4VetsCustomerTransactions';
-import SignIn from './SignIn';
+import PrivateRoute from '../PrivateRoute';
+import Auth from '../Auth';
+
+const NotFound = ({ location }) => (
+  <div>
+    <h3>No match for <code>{location.pathname}</code></h3>
+  </div>
+)
 
 function Home () {
   return (
@@ -135,7 +145,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -144,6 +154,14 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleSignOutClick = () => {
+    console.log('click')
+    if (Auth.isAuthenticated === true) {
+      Auth.signOut();
+      props.history.push('/');
+    }
+  }
 
   return (
 
@@ -172,6 +190,15 @@ export default function Dashboard() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>*/}
+            <Link>
+              <ListItem button>
+                  <ListItemText>
+                    <Button onClick={handleSignOutClick}>
+                      Sign Out
+                    </Button>
+                  </ListItemText>
+              </ListItem>
+            </Link>
           </Toolbar>
         </AppBar>
 
@@ -199,17 +226,18 @@ export default function Dashboard() {
             <Grid container spacing={3}>
 
               {/* Heading */}
-              
+          
               <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/orders" component={Orders} />
-                <Route path="/orderproducts" component={OrderProducts} />
-                <Route path="/orderproducts/?order_id=" component={OrderProducts} />
-                <Route path="/customers" component={Customers} />
-                <Route path="/paid-customers" component={PaidCustomers} />
-                <Route path="/transactions" component={CustomerTransactions} />
-                <Route path="/transactions/?customer_id=" component={CustomerTransactions} />
-                <Route path="/sellforvets-alltransactions" component={Sell4VetsCustomerTransactions} />
+                <PrivateRoute path="/dashboard" component={Home} />
+                <PrivateRoute path="/orders" component={Orders} />
+                <PrivateRoute path="/orderproducts" component={OrderProducts} />
+                <PrivateRoute path="/orderproducts/?order_id=" component={OrderProducts} />
+                <PrivateRoute path="/customers" component={Customers} />
+                <PrivateRoute path="/paid-customers" component={PaidCustomers} />
+                <PrivateRoute path="/transactions" component={CustomerTransactions} />
+                <PrivateRoute path="/transactions/?customer_id=" component={CustomerTransactions} />
+                <PrivateRoute path="/sellforvets-alltransactions" component={Sell4VetsCustomerTransactions} />
+                <PrivateRoute component={NotFound} />
               </Switch>
 
             </Grid>

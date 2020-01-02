@@ -12,8 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import axios from 'axios';
-import mysqlPassword from 'mysql-password';
+
 
 function Copyright() {
   return (
@@ -48,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-class SignIn extends React.Component {
+class SignInForm extends React.Component {
     constructor (props) {
       super (props);
       this.state = {
@@ -61,35 +60,17 @@ class SignIn extends React.Component {
     }
 
     handleChange (event) {
-      const target = event.target;
-      const value = target.value;
-      const name = target.name;
-
-      this.setState({
-        [name]: value
-      });
+      this.props.onHandleChange(event);
     }
 
     handleSubmit (event) {
       event.preventDefault();
-      console.log('Username: ', this.state.username);
-      console.log('Password: ', this.state.password);
-      this.login(this.state.username, this.state.password)
-      this.props.history.push("/");
-    }
-
-    login = async (username, password) => {
-      const response = await axios.post(
-        '/login',
-        { username: username, password: password },
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-      console.log(response.data);
+      this.props.onHandleSubmit(event);
     }
 
     render () {
         const classes = useStyles;
-        
+        let successMessage = this.props.successMessage;
         return (
             <Container component="main" maxWidth="xs">
               <CssBaseline />
@@ -135,6 +116,9 @@ class SignIn extends React.Component {
                       Sign In
                     </Button>
                   </form>
+                  <Typography>
+                    { successMessage }
+                  </Typography>
               </div>
               <Box mt={8}>
                   <Copyright />
@@ -144,4 +128,4 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+export default SignInForm;
