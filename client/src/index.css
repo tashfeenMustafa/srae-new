@@ -99,7 +99,10 @@ button.MuiIconButton-root {
     width: 57px;
   }
   div.makeStyles-drawerPaperClose-176 {
-      width: 56px;
+    width: 56px;
+  }
+  .jss176 {
+    width: 56px;
   }
 }
 .SignInForm {
