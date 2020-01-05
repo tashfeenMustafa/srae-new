@@ -101,6 +101,9 @@ button.MuiIconButton-root {
   div.makeStyles-drawerPaperClose-176 {
     width: 56px;
   }
+  div.jss176 {
+    width: 72px !important;
+  }
 }
 .SignInForm {
   padding-top: 11%;
