@@ -15,7 +15,7 @@ class SignIn extends React.Component {
       username: '',
       password: '',
       redirectToReferrer: false,
-      successMessage: 'Enter your username and password to login'
+      successMessage: 'Enter your username and password to login.'
     };
 
     this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
@@ -49,7 +49,7 @@ class SignIn extends React.Component {
     this.setState({
       successMessage: response.data.success
     });
-    if (response.data.success === 'login sucessfull') {
+    if (response.data.success === 'Login Sucessfull.') {
       Auth.authenticate();
       this.setState({
         redirectToReferrer: true

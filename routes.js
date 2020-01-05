@@ -440,7 +440,7 @@ router.post('/login', (req, res) => {
         console.log("error ocurred",error);
         res.send({
           "code":400,
-          "success":"Error Ocurred"
+          "success":"Error Ocurred."
         })
       }
       else {
