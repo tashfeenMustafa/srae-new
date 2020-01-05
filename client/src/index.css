@@ -101,7 +101,7 @@ button.MuiIconButton-root {
   div.makeStyles-drawerPaperClose-176 {
     width: 56px;
   }
-  .jss176 {
+  [class^="js"] {
     width: 56px;
   }
 }
