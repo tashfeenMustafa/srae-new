@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +10,13 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from 'react-router-dom';
+
+const styles = {
+    tooltip: {
+      color: "lightblue",
+      backgroundColor: "green"
+    }
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,7 +35,7 @@ export default function HomeButton() {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Tooltip title={"Home page of the Admin App. The page only shows the Dashboard and the menu to access other pages in the app."}>
+        <Tooltip className="tooltip" title={<span style={{ fontSize: "15px", color: "white" }}>Home page of the Admin App. The page only shows the Dashboard and the menu to access other pages in the app.</span>}>
             <Grid item xs={3}>
                 <Link to={"/"}>
                     <Paper className={classes.paper}>
@@ -40,7 +47,7 @@ export default function HomeButton() {
                 </Link>
             </Grid>
         </Tooltip>
-        <Tooltip title={"Shows all orders ordered by any customer including order details, customer details, total customer profit, total owner profit of the respective order, and a button to view that order's products."}>
+        <Tooltip title={<span style={{ fontSize: "15px", color: "white" }}>Shows all orders ordered by any customer including order details, customer details, total customer profit, total owner profit of the respective order, and a button to view that order's products.</span>}>
             <Grid item xs={3}>
                 <Link to={"/orders"}>
                     <Paper className={classes.paper}>
@@ -52,7 +59,7 @@ export default function HomeButton() {
                 </Link>
             </Grid>
         </Tooltip>
-        <Tooltip title={"Shows all customers, customer details and view transactions button which shows referral benefits, order benefits, and withdrawal of order benefits by that customer."}>
+        <Tooltip title={<span style={{ fontSize: "15px", color: "white" }}>Shows all customers, customer details and view transactions button which shows referral benefits, order benefits, and withdrawal of order benefits by that customer.</span>}>
             <Grid item xs={3}>
                 <Link to={"/customers"}>
                     <Paper className={classes.paper}>
@@ -64,7 +71,7 @@ export default function HomeButton() {
                 </Link>
             </Grid>
         </Tooltip>
-        <Tooltip title={"Same as Customers page but only shows Paid Customers."}>
+        <Tooltip title={<span style={{ fontSize: "15px", color: "white" }}>Same as Customers page but only shows Paid Customers.</span>}>
             <Grid item xs={3}>
                 <Link to={"/paid-customers"}>
                     <Paper className={classes.paper}>
@@ -76,7 +83,7 @@ export default function HomeButton() {
                 </Link>
             </Grid>
         </Tooltip>
-        <Tooltip title={"Shows all transactions happening in Sell4Vets app, which is order benefits, referral benefits between customers and withdrawals of order benefits by all customers."}>
+        <Tooltip title={<span style={{ fontSize: "15px", color: "white" }}>Shows all transactions happening in Sell4Vets app, which is order benefits, referral benefits between customers and withdrawals of order benefits by all customers.</span>}>
             <Grid item xs={3}>
                 <Link to={"/sellforvets-alltransactions"}>
                     <Paper className={classes.paper}>

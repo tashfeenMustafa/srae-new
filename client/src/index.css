@@ -94,6 +94,7 @@ button.MuiIconButton-root {
   padding: 58px;
   text-align: center;
 }
+
 @media (min-width: 600px) {
   div.makeStyles-drawerPaperClose-279 {
     width: 57px;
@@ -105,6 +106,7 @@ button.MuiIconButton-root {
     width: 56px !important;
   }
 }
+
 .SignInForm {
   padding-top: 11%;
 }

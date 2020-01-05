@@ -54,7 +54,7 @@ class OrdersTableRow extends React.Component {
         <TableCell align="right"> { order.total_customer_profit } </TableCell>
         <TableCell align="right"> { order.date_added } </TableCell>
         <TableCell align="right">
-          <Tooltip title={"Shows all the products added to an order including product details, manufacturer details, customer profit and owner profit from each product."}>
+          <Tooltip title={<span style={{ fontSize: "15px", color: "white" }}>Shows all the products added to an order including product details, manufacturer details, customer profit and owner profit from each product.</span>}>
             <Link to={'/orderproducts/?order_id=' + order.order_id + '&customer_id=' + order.customer_id}>
               <Button 
                 variant="contained" 

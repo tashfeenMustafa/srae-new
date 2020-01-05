@@ -73,7 +73,7 @@ class CustomersTableRow extends React.Component {
                 <TableCell align="right">{ customerParentName }</TableCell>
                 <TableCell align="right">{ customer.date_added }</TableCell>
                 <TableCell align="right">
-                  <Tooltip title={"Shows referral benefits, order benefits, and withdrawals of that customer."}>
+                  <Tooltip title={<span style={{ fontSize: "15px", color: "white" }}>Shows referral benefits, order benefits, and withdrawals of that customer.</span>}>
                     <Link to={'/transactions/?customer_id=' + customer.customer_id + '&customer_firstname=' + customer.customer_firstname + '&customer_lastname=' + customer.customer_lastname}>
                       <Button 
                         variant="contained" 
