@@ -14,16 +14,29 @@ const useStyles = makeStyles({
 });
 
 class OrderProducts extends React.Component {
+    signal = axios.CancelToken.source();
+
     constructor (props) {
         super (props);
         this.state = {
             orderProducts: [],
             customerDetails: {},
-            productManufacturer: []
+            productManufacturer: [],
+            isLoading: false
         }
     }
 
-    async componentDidMount () {        
+    componentDidMount () {
+        this.onLoading();
+    }
+
+    componentWillUnmount () {
+        this.signal.cancel('API is being cancelled');
+        console.log('Unmounting OrdersTable');
+    }
+
+    onLoading = async () => {        
+        console.log(this.props.location)
         let query = this.props.location.search;
         let params = new URLSearchParams(query);
         let orderID = params.get('order_id');
@@ -33,9 +46,6 @@ class OrderProducts extends React.Component {
         this.setState({ orderProducts: data.response });
         data = await axios.get('/api/v1/customerdetails?customer_id=' + customerID);
         this.setState({ customerDetails: data.data.response[0] });
-    }
-
-    componentWillUnmount () {
     }
     
     render () {

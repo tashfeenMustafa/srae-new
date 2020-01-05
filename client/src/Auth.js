@@ -1,10 +1,12 @@
 const Auth = {
     isAuthenticated: false,
-    authenticate() {
-      this.isAuthenticated = true;
+    authenticate(cb) {
+      Auth.isAuthenticated = true;
+      setTimeout(cb, 100);
     },
-    signOut() {
-      this.isAuthenticated = false;
+    signOut(cb) {
+      Auth.isAuthenticated = false;
+      setTimeout(cb, 100);
     }
 }
 

@@ -79,7 +79,7 @@ class SignInForm extends React.Component {
                     <LockOutlinedIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                    Sign in
+                    Sign in to your Sell4Vets account to view the Dashboard.
                   </Typography>
                   <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
                     <TextField

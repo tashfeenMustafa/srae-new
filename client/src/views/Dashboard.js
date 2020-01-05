@@ -20,7 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 //import NotificationsIcon from '@material-ui/icons/Notifications';
-import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { mainListItems } from './DashboardComponents/listItems';
 //import SignIn from './SignIn';
@@ -30,6 +30,7 @@ import Customers from './CustomerComponents/Customers';
 import CustomerTransactions from './CustomerTransactionsComponents/CustomerTransactions';
 import PaidCustomers from './PaidCustomersComponents/PaidCustomers';
 import Sell4VetsCustomerTransactions from './Sell4VetsCustomerTransactionsComponents/Sell4VetsCustomerTransactions';
+import HomeButtons from './HomeComponents/HomeButtons';
 import PrivateRoute from '../PrivateRoute';
 import Auth from '../Auth';
 
@@ -46,6 +47,7 @@ function Home () {
         <Typography variant="h1" component="h2" gutterBottom>
           Dashboard
         </Typography>
+        <HomeButtons />
       </Paper>
     </Grid>
   );
@@ -145,9 +147,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Dashboard(props) {
+export default function Dashboard (props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -228,7 +230,7 @@ export default function Dashboard(props) {
               {/* Heading */}
           
               <Switch>
-                <PrivateRoute path="/dashboard" component={Home} />
+                <PrivateRoute exact path="/" component={Home} />
                 <PrivateRoute path="/orders" component={Orders} />
                 <PrivateRoute path="/orderproducts" component={OrderProducts} />
                 <PrivateRoute path="/orderproducts/?order_id=" component={OrderProducts} />

@@ -58,8 +58,12 @@ class OrderProductsTableRow extends React.Component {
   render () {
     let orderProduct = this.props.orderProduct;
     let manufacturerName;
+    let manufacturerID;
 
-    if (orderProduct.name === 'Military Membership') {
+    if (this.state.manufacturerID[0]) {
+      manufacturerID = this.state.manufacturerID[0].manufacturer_id;
+    }
+    if (orderProduct.name === 'Military Membership' || manufacturerID === 0) {
       manufacturerName = 'No Manufacturer for this product';
     }
     else {

@@ -39,6 +39,7 @@ class SignIn extends React.Component {
   }
 
   login = async (username, password) => {
+    console.log()
     const response = await axios.post (
       '/login',
       { username: username, password: password },
@@ -61,20 +62,14 @@ class SignIn extends React.Component {
 
   render () {
     let { redirectToReferrer, successMessage } = this.state;
+    let { from } = this.props.location.pathname || { from: { pathname: '/dashboard' }};
 
     if (redirectToReferrer) {
-      return <Redirect to={'/dashboard'} />
+      return <Redirect to={from} />
     }
 
     return (
-      <div>
-        <Grid container>
-          <Grid xs={12} item>
-            <Typography align="center" variant="h5">
-              Sign In to your Sell4Vets account to view the Dashboard
-            </Typography>
-          </Grid>
-        </Grid>
+      <div className="SignInForm">
         <SignInForm
           successMessage={successMessage} 
           onHandleChange={this.handleSignInChange}
@@ -93,7 +88,7 @@ class App extends React.Component {
 
         <Switch>
           <Route path='/sign-in' component={SignIn} />
-          <PrivateRoute path='/dashboard' component={Dashboard} />
+          <PrivateRoute path='/' component={Dashboard} />
           <Route component={SignIn} />
         </Switch>
       </div>

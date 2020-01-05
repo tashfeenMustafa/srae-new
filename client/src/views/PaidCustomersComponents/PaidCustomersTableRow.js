@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios';
 
 class PaidCustomersTableRow extends React.Component {
@@ -72,13 +73,15 @@ class PaidCustomersTableRow extends React.Component {
                 <TableCell align="right">{ customerParentName }</TableCell>
                 <TableCell align="right">{ customer.date_added }</TableCell>
                 <TableCell align="right">
-                  <Link to={'/transactions/?customer_id=' + customer.customer_id + '&customer_firstname=' + customer.firstname + '&customer_lastname=' + customer.lastname}>
-                    <Button 
-                      variant="contained" 
-                      color="primary">
-                        View Transactions
-                    </Button>
-                  </Link>
+                  <Tooltip title={"Shows referral benefits, order benefits, and withdrawals of that customer."}>
+                    <Link to={'/transactions/?customer_id=' + customer.customer_id + '&customer_firstname=' + customer.firstname + '&customer_lastname=' + customer.lastname}>
+                      <Button 
+                        variant="contained" 
+                        color="primary">
+                          View Transactions
+                      </Button>
+                    </Link>
+                  </Tooltip>
                 </TableCell>
             </TableRow>
         );

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class OrdersTableRow extends React.Component {
   constructor (props) {
@@ -53,14 +54,16 @@ class OrdersTableRow extends React.Component {
         <TableCell align="right"> { order.total_customer_profit } </TableCell>
         <TableCell align="right"> { order.date_added } </TableCell>
         <TableCell align="right">
-          <Link to={'/orderproducts/?order_id=' + order.order_id + '&customer_id=' + order.customer_id}>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              onClick={this.handleViewOrders}>
-                View Orders
-            </Button>
-          </Link>
+          <Tooltip title={"Shows all the products added to an order including product details, manufacturer details, customer profit and owner profit from each product."}>
+            <Link to={'/orderproducts/?order_id=' + order.order_id + '&customer_id=' + order.customer_id}>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={this.handleViewOrders}>
+                  View Orders
+              </Button>
+            </Link>
+          </Tooltip>
         </TableCell>
         
       </TableRow>

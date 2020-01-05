@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 export const mainListItems = (
     <div>
-      <Link to={"/dashboard"}>
+      <Link to={"/"}>
         <ListItem button>
           <ListItemIcon>
             <DashboardIcon />

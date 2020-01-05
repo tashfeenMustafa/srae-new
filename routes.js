@@ -440,7 +440,7 @@ router.post('/login', (req, res) => {
         console.log("error ocurred",error);
         res.send({
           "code":400,
-          "success":"error ocurred"
+          "success":"Error Ocurred"
         })
       }
       else {
@@ -453,20 +453,20 @@ router.post('/login', (req, res) => {
             
             res.send({
               "code":200,
-              "success":"login sucessfull"
+              "success":"Login Sucessfull."
             });
           }
           else {
             res.send({
               "code":204,
-              "success":"Email and password does not match"
+              "success":"Username and password do not match."
             });
           }
         }
         else {
           res.send({
             "code":204,
-            "success":"Email does not exits"
+            "success":"Username does not exits."
           });
         }
       }
