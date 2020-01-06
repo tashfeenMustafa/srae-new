@@ -10,6 +10,8 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.0",
     "faxios": "^0.6.4",
+    "history": "^4.10.1",
+    "js-cookie": "^2.2.1",
     "mysql-password": "0.0.1",
     "node-sha1": "^1.0.1",
     "react": "^16.12.0",

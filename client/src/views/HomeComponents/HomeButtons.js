@@ -39,7 +39,7 @@ export default function HomeButton() {
             <Grid item xs={3}>
                 <Link to={"/"}>
                     <Paper className={classes.paper}>
-                        <DashboardIcon />
+                        <DashboardIcon fontSize="large" />
                         <Typography variant="h6">
                             Dashboard
                         </Typography>
@@ -51,7 +51,7 @@ export default function HomeButton() {
             <Grid item xs={3}>
                 <Link to={"/orders"}>
                     <Paper className={classes.paper}>
-                        <ShoppingCartIcon />
+                        <ShoppingCartIcon fontSize="large" />
                         <Typography variant="h6">
                             Orders
                         </Typography>
@@ -63,7 +63,7 @@ export default function HomeButton() {
             <Grid item xs={3}>
                 <Link to={"/customers"}>
                     <Paper className={classes.paper}>
-                        <PeopleIcon />
+                        <PeopleIcon fontSize="large" />
                         <Typography variant="h6">
                             Customers
                         </Typography>
@@ -75,7 +75,7 @@ export default function HomeButton() {
             <Grid item xs={3}>
                 <Link to={"/paid-customers"}>
                     <Paper className={classes.paper}>
-                        <PeopleAltIcon />
+                        <PeopleAltIcon fontSize="large" />
                         <Typography variant="h6">
                             Paid Customers
                         </Typography>
@@ -87,7 +87,7 @@ export default function HomeButton() {
             <Grid item xs={3}>
                 <Link to={"/sellforvets-alltransactions"}>
                     <Paper className={classes.paper}>
-                        <AssignmentIcon />
+                        <AssignmentIcon fontSize="large" />
                         <Typography variant="h6">
                             All Transactions
                         </Typography>
